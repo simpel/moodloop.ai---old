@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  moods Mood[]
+}
+
+model User {
+  id            String    @id @default(cuid())
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @default(now())
+  clerk_id      String    @unique
+  threadId      String?
+  first_name     String?
+  last_name     String?
+  email         String?   @unique
+  moods         Mood[]
+  thread        Thread?
+}
+
+model Thread {
+  id        String      @id @default(cuid()) @unique
+  createdAt DateTime    @default(now())
+  userId    String      @unique
+  threadId  String      @unique
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+}
+
+model Mood {
+  id         Int      @id @default(autoincrement())
+  mood      Int
+  createdAt  DateTime @default(now())
+  categoryId Int
+  userId     String
+  category   Category @relation(fields: [categoryId], references: [id])
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([categoryId], map: "Mood_categoryId_fkey")
+  @@index([userId], map: "Mood_userId_fkey")
+}

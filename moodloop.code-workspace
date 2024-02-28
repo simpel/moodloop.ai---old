@@ -1,0 +1,89 @@
+{
+	"folders": [
+		{
+			"path": "./"
+		}
+	],
+	"extensions": {
+		"recommendations": [
+			"samverschueren.linter-xo",
+			"esbenp.prettier-vscode",
+			"stylelint.vscode-stylelint",
+			"mrmlnc.vscode-scss",
+			"vunguyentuan.vscode-css-variables"
+		]
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Next.js: debug server-side",
+				"type": "node-terminal",
+				"request": "launch",
+				"command": "npm run dev"
+			},
+			{
+				"name": "Next.js: debug client-side",
+				"type": "chrome",
+				"request": "launch",
+				"url": "http://localhost:3000"
+			},
+			{
+				"name": "Next.js: debug full stack",
+				"type": "node-terminal",
+				"request": "launch",
+				"command": "npm run dev",
+				"serverReadyAction": {
+					"pattern": "started server on .+, url: (https?://.+)",
+					"uriFormat": "%s",
+					"action": "debugWithChrome"
+				}
+			}
+		]
+	},
+	"settings": {
+		"json.schemas": [
+			{
+				"url": "https://cdn.jsdelivr.net/npm/tsup/schema.json",
+				"fileMatch": [
+					"package.json",
+					"tsup.config.json"
+				]
+			}
+		],
+		"css.validate": false,
+		"scss.validate": false,
+		"xo.enable": true,
+		"xo.format.enable": true,
+		"xo.statusBar": "Relevant",
+		"editor.defaultFormatter": "samverschueren.linter-xo",
+		"editor.formatOnSave": true,
+		"html.format.enable": true,
+		"typescript.format.enable": true,
+		"javascript.format.enable": true,
+		"editor.formatOnType": true,
+		"scss.format.enable": true,
+		"stylelint.enable": true,
+		"stylelint.validate": [
+			"css",
+			"scss"
+		],
+		"[scss]": {
+			"editor.defaultFormatter": "stylelint.vscode-stylelint"
+		},
+		"[css]": {
+			"editor.defaultFormatter": "stylelint.vscode-stylelint"
+		},
+		"prettier.enable": false,
+		"search.exclude": {
+			"**/.next": true,
+			"**/dist": true,
+			"**/node_modules": false,
+			"**/node_modules/": true
+		},
+		"cssVariables.lookupFiles": [
+			"**/*.css",
+			"**/*.scss",
+		]
+	}
+}
