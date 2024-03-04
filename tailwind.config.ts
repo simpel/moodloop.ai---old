@@ -79,6 +79,9 @@ const config = {
 			backgroundImage: {
 				mainBg: "url('../public/src/bg.svg')",
 			},
+			gridTemplateRows: {
+				chat: '1fr minmax(80px, 1fr)',
+			},
 		},
 	},
 	plugins: [require('tailwindcss-animate')],

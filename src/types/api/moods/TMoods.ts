@@ -1,4 +1,4 @@
 export type TPostMood = {
-  categoryId: number;
-  mood: number;
-};
+	categoryId: number
+	mood: number
+}

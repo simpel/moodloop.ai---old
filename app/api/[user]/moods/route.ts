@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { type TPostMood } from '@/src/types/api/moods/TMoods'
-import { prisma } from '@/src/clients/prisma'
+import { prisma } from '@/src/clients/supabase/server'
 
 /**
  * Handles the GET request for retrieving user moods within a specified range.
@@ -17,6 +17,7 @@ export async function GET(request: Request, context: { params: any }) {
 			: Number(searchParams.get('range'))
 
 		const moods = await prisma.user.findUnique({
+			cacheStrategy: { ttl: 60 },
 			where: {
 				id: Number(context.params.user),
 			},
@@ -69,8 +70,8 @@ export async function POST(request: Request, context: { params: any }) {
 		const data = await prisma.mood.create({
 			data: {
 				categoryId: json.categoryId,
-				value: json.mood,
-				userId: Number(context.params.user),
+				mood: json.mood,
+				userId: String(context.params.user),
 			},
 		})
 
